@@ -1,20 +1,34 @@
 package com.jogo;
 
+/** Classe para objetos do tipo Palavra, essa fará a montagem de um palavra passada como parametro e
+ * o tratamento das suposições de adivinhação da palavra escolhida
+ * @author Carlos Alberto, Christian e Ricardo
+ * @version 1.0
+ * @since 2017-03-10
+*/
 public class Palavra {
 	
-	String palavra;
-	String newPalavra = "";
-	int tamanho;
+	public String palavra;
+	public String newPalavra = "";
+	public int tamanho;
 	
-	String chutes = "";
-	Jogador jog;
+	public String chutes = "";
+	public static Jogador jog;
 	
+	/**
+	  * Construtor da classe.
+	  * @param esc (obrigatório) Palavra inserida pelo jogador - type (String)
+	 */
 	Palavra(String esc){
 		palavra = esc;
 		tamanho = palavra.length();
 		controiPalavra();
 	}
 	
+	/** Construção de uma nova string, contendo um espaço e um underline (" _") para cada
+	 * letra da palavra recebida no contrutor. 
+	 * @return Void - null (print)
+	*/	
 	void controiPalavra(){
 		int i;
 		for(i=0;i<tamanho; i++){
@@ -22,6 +36,13 @@ public class Palavra {
 		}
 	}
 	
+	/** Função responsável por tratar a string passada por parametro,
+	 * verificar se a mesma está dentro da palavra escolhida na classe pai
+	 * e atribuir pontos ao jogador que informou a string passado como parametro.
+	 * @param c (obrigatório) Uma letra - type (String)
+	 * @param jog (obrigatório) extends class Jogador - type (Jogador)
+	 * @return Void - null (print)
+	*/	
 	void chute(String c, Jogador jog){
 		c = c.toLowerCase();
 		String alfabeto = "abcdefghijklmnopqrstuvxwyz";
@@ -34,13 +55,19 @@ public class Palavra {
 			mudaNewPalavra(c, jog);
 		}else if(chutes.indexOf(c) >= 0){
 			System.out.println("=== Você já digitou essa letra incorreta");
-			jog.erros++;
+			jog.setErros(jog.getErros() + 1);
 		}else{
 			chutes += c;
-			jog.erros++;
+			jog.setErros(jog.getErros() + 1);
 		}
 	}
 	
+	/** Função responsável por tratar a nova string criada, 
+	 * substituindo o underline pela letra correta submetida pelo usuário
+	 * @param letra (obrigatório) Uma letra - type (String)
+	 * @param jog (obrigatório) extends class Jogador - type (Jogador)
+	 * @return Void - null (print)
+	*/	
 	void mudaNewPalavra(String letra, Jogador jog){
 		String p = palavra;
 		do{
@@ -56,7 +83,7 @@ public class Palavra {
 				newPalavra = newPalavra.substring(0, pos*2+1) + letra + newPalavra.substring(pos*2+2);
 				p = p.substring(0, pos)+ " " + p.substring(pos+1);
 			}
-			jog.acertos++;
+			jog.setAcertos(jog.getAcertos() + 1);
 			
 		}while(p.indexOf(letra)>=0 && !p.equals(""));
 	}
