@@ -56,7 +56,7 @@ public class Main {
 				System.out.format("\nQue pena %s, você extourou o número de erros\n", jog2.getName());
 				jog1.setVitorias(jog1.getVitorias() + 1);
 			}else{
-				System.out.format("\nMuito bem %s, você adivinhou\n", jog2.getName());
+				System.out.format("\nMuito bem %s, você adivinhou. A palavra era: '%s'\n", jog2.getName(), esc.palavra);
 				jog2.setVitorias(jog2.getVitorias() + 1);
 			}
 			
